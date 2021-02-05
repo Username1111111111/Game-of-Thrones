@@ -21,11 +21,11 @@
 //     .catch(error => console.log('Error', error));
 
 export default class GotService {
-		
+
 	constructor() {
 		this._apiBase = 'https://www.anapioficeandfire.com/api/';
 	}
-	
+
 	// "Async - await" is required for asynchronous fetch and promise
 	async getResource(url) {
 		const res = await fetch(`${this._apiBase}${url}`);
@@ -34,43 +34,44 @@ export default class GotService {
 		if (!res.ok) {
 			throw new Error(`Could not fetch ${url}, status ${res.status}`);
 		}
-				
-		return  await res.json();
+
+		return await res.json();
 	}
-	
+
 	async getAllCharacters() {
 		const res = await this.getResource('/characters?page=5&pageSize=10');
 		return res.map(this._transformCharacter);
 	}
-	
+
 	async getCharacter(id) {
 		const character = await this.getResource(`/characters/${id}`);
 		return this._transformCharacter(character);
 	}
-	
+
 	getAllBooks() {
 		return this.getResource('/books/');
 	}
-	
+
 	getBooks(id) {
 		return this.getResource(`/books/${id}`);
 	}
-	
+
 	getAllHouses() {
 		return this.getResource('/houses/');
 	}
-	
+
 	getHouse(id) {
 		return this.getResource(`/houses/${id}`);
 	}
 
 	_transformCharacter(char) {
+		// const desiredProps = ['name', 'gender', 'born', 'died', 'culture'];
 		return {
-			name: char.name,
-			gender: char.gender,
-			born: char.born,
-			died: char.died,
-			culture: char.culture
+			name: this.checkProp(char.name),
+			gender: this.checkProp(char.gender),
+			born: this.checkProp(char.born),
+			died: this.checkProp(char.died),
+			culture: this.checkProp(char.culture)
 		};
 	}
 
@@ -86,6 +87,7 @@ export default class GotService {
 	}
 
 	_transformBook(book) {
+		// const desiredProps = ['name', 'numberOfPages', 'publisher', 'released'];
 		return {
 			name: book.name,
 			numberOfPages: book.numberOfPages,
@@ -93,7 +95,20 @@ export default class GotService {
 			released: book.released
 		};
 	}
+
+	checkProp(propValue) {
+		if (propValue.length < 1 || propValue === null || propValue === '' || propValue === undefined) {
+			return '*No data*';
+		} else {
+			return propValue;
+		}
+	}
+
+	
+
 }
+
+
 
 // const got = new GotService();
 

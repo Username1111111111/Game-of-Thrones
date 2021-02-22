@@ -2,8 +2,8 @@ import React from 'react';
 import { Col, Row, Container, Button } from 'reactstrap';
 import Header from '../header';
 import RandomChar from '../randomChar';
-import ItemList from '../itemList';
-import CharDetails from '../charDetails';
+import ErrorMessage from '../errorMessage';
+import CharacterPage from '../characterPage';
 
 export default class App extends React.Component {
 	
@@ -11,8 +11,14 @@ export default class App extends React.Component {
 		super();
 		this.hideRandomChar = this.hideRandomChar.bind(this);
 		this.state = {
-			hidden: false
+			hidden: false,
+			error: false
 		};
+	}
+
+	componentDidCatch() {
+		console.log('error');
+		this.setState({error: true});
 	}
 
 	hideRandomChar() {
@@ -31,6 +37,10 @@ export default class App extends React.Component {
 			}
 		};
 
+		if (this.state.error) {
+			return <ErrorMessage/>;
+		}
+
 		return (
 			<>
 				<Container>
@@ -43,14 +53,7 @@ export default class App extends React.Component {
 							<Button color="primary" className="d-flex justify-content-center my-5" onClick={this.hideRandomChar}>Toggle random character</Button>
 						</Col>
 					</Row>
-					<Row>
-						<Col md='6'>
-							<ItemList />
-						</Col>
-						<Col md='6'>
-							<CharDetails />
-						</Col>
-					</Row>
+					<CharacterPage/>
 				</Container>
 			</>
 		);

@@ -38,35 +38,52 @@ export default class GotService {
 		return await res.json();
 	}
 
-	async getAllCharacters() {
-		const res = await this.getResource('/characters?page=5&pageSize=10');
-		return res.map(this._transformCharacter);
+	// async getAllCharacters(page = 5, pageSize = 10) {
+	// 	const startId = (page - 1) * pageSize;
+	// 	const res = await this.getResource(`/characters?page=${page}&pageSize=${pageSize}`);
+	// 	return res.map( (elem, index) => this._transformCharacter(elem, startId + index));
+	// }
+
+	async getAllCharacters(page = 5, pageSize = 10) {
+		const res = await this.getResource(`/characters?page=${page}&pageSize=${pageSize}`);
+		return res.map( (elem) => this._transformCharacter(elem));
 	}
 
 	async getCharacter(id) {
 		const character = await this.getResource(`/characters/${id}`);
-		return this._transformCharacter(character);
+		return this._transformCharacter(character, id);
 	}
 
-	getAllBooks() {
+	async getAllBooks() {
 		return this.getResource('/books/');
 	}
 
-	getBooks(id) {
+	async getBook(id) {
 		return this.getResource(`/books/${id}`);
 	}
 
-	getAllHouses() {
+	async getAllHouses() {
 		return this.getResource('/houses/');
 	}
 
-	getHouse(id) {
+	async getHouse(id) {
 		return this.getResource(`/houses/${id}`);
 	}
 
+	// _transformCharacter(char, id) {
+	// 	return {
+	// 		id: id,
+	// 		name: this.checkProp(char.name),
+	// 		gender: this.checkProp(char.gender),
+	// 		born: this.checkProp(char.born),
+	// 		died: this.checkProp(char.died),
+	// 		culture: this.checkProp(char.culture)
+	// 	};
+	// }
+
 	_transformCharacter(char) {
-		// const desiredProps = ['name', 'gender', 'born', 'died', 'culture'];
 		return {
+			id: this._getIdFromUrl(char.url),
 			name: this.checkProp(char.name),
 			gender: this.checkProp(char.gender),
 			born: this.checkProp(char.born),
@@ -87,7 +104,6 @@ export default class GotService {
 	}
 
 	_transformBook(book) {
-		// const desiredProps = ['name', 'numberOfPages', 'publisher', 'released'];
 		return {
 			name: book.name,
 			numberOfPages: book.numberOfPages,
@@ -96,18 +112,21 @@ export default class GotService {
 		};
 	}
 
+	_getIdFromUrl(url) {
+		const idRegex = /[\d]{1,}$/;
+		const id = url.match(idRegex)[0];
+		// console.log(id);
+		return id;
+	}
+
 	checkProp(propValue) {
-		if (propValue.length < 1 || propValue === null || propValue === '' || propValue === undefined) {
+		if (propValue === undefined || propValue.length < 1 || propValue === null || propValue === '' || !propValue ) {
 			return '*No data*';
 		} else {
 			return propValue;
 		}
 	}
-
-	
-
 }
-
 
 
 // const got = new GotService();

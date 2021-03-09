@@ -5,7 +5,7 @@ import RandomChar from '../randomChar';
 import ErrorMessage from '../errorMessage';
 import CharacterPage from '../characterPage';
 import ItemList from '../itemList';
-import CharDetails from '../charDetails';
+import ItemDetails from '../itemDetails';
 import gotService from '../../services/gotService';
 
 export default class App extends React.Component {
@@ -62,23 +62,23 @@ export default class App extends React.Component {
 					<Row>
 						<Col md='6'>
 							<ItemList 
-								onCharSelected={this.onCharSelected} 
+								onItemSelected={this.onCharSelected} 
 								getData={this.gotService.getAllBooks}
 								renderItem={ (item) => (<><span>{item.name}</span> <button>Click me</button></>)}/>
 						</Col>
 						<Col md='6'>
-							<CharDetails charId={this.state.selectedChar} />
+							<ItemDetails itemId={this.state.selectedChar} />
 						</Col>
 					</Row>
 					<Row>
 						<Col md='6'>
 							<ItemList 
-								onCharSelected={this.onCharSelected} 
+								onItemSelected={this.onCharSelected} 
 								getData={this.gotService.getAllHouses}
 								renderItem={ (item) => item.name}/>
 						</Col>
 						<Col md='6'>
-							<CharDetails charId={this.state.selectedChar} />
+							<ItemDetails itemId={this.state.selectedChar} />
 						</Col>
 					</Row>
 				</Container>

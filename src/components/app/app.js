@@ -4,8 +4,13 @@ import Header from '../header';
 import RandomChar from '../randomChar';
 import ErrorMessage from '../errorMessage';
 import CharacterPage from '../characterPage';
+import ItemList from '../itemList';
+import CharDetails from '../charDetails';
+import gotService from '../../services/gotService';
 
 export default class App extends React.Component {
+
+	gotService = new gotService();
 	
 	constructor() {
 		super();
@@ -18,7 +23,7 @@ export default class App extends React.Component {
 
 	componentDidCatch() {
 		console.log('error');
-		this.setState({error: true});
+		this.setState({ error: true });
 	}
 
 	hideRandomChar() {
@@ -33,12 +38,12 @@ export default class App extends React.Component {
 				return null;
 			}
 			else {
-				return <RandomChar/>;
+				return <RandomChar />;
 			}
 		};
 
 		if (this.state.error) {
-			return <ErrorMessage/>;
+			return <ErrorMessage />;
 		}
 
 		return (
@@ -49,11 +54,33 @@ export default class App extends React.Component {
 				<Container>
 					<Row>
 						<Col lg={{ size: 5, offset: 0 }}>
-							<Content/>
+							<Content />
 							<Button color="primary" className="d-flex justify-content-center my-5" onClick={this.hideRandomChar}>Toggle random character</Button>
 						</Col>
 					</Row>
-					<CharacterPage/>
+					<CharacterPage />
+					<Row>
+						<Col md='6'>
+							<ItemList 
+								onCharSelected={this.onCharSelected} 
+								getData={this.gotService.getAllBooks}
+								renderItem={ (item) => (<><span>{item.name}</span> <button>Click me</button></>)}/>
+						</Col>
+						<Col md='6'>
+							<CharDetails charId={this.state.selectedChar} />
+						</Col>
+					</Row>
+					<Row>
+						<Col md='6'>
+							<ItemList 
+								onCharSelected={this.onCharSelected} 
+								getData={this.gotService.getAllHouses}
+								renderItem={ (item) => item.name}/>
+						</Col>
+						<Col md='6'>
+							<CharDetails charId={this.state.selectedChar} />
+						</Col>
+					</Row>
 				</Container>
 			</>
 		);

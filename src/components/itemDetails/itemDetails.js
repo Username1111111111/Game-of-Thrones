@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import './itemDetails.css';
-import gotService from '../../services/gotService';
 
 const Field = ({ item, field, label }) => {
 	return (
@@ -17,9 +16,7 @@ export {
 };
 
 export default class ItemDetails extends Component {
-
-	gotService = new gotService();
-
+	
 	state = {
 		item: null
 	}
@@ -35,15 +32,15 @@ export default class ItemDetails extends Component {
 	}
 
 	updateItem() {
-		const { itemId } = this.props;
+		const { getData, itemId } = this.props;
+		
 		if (!itemId) {
 			return;
 		}
-		this.gotService.getCharacter(itemId)
+		getData(itemId)
 			.then((item) => {
 				this.setState({ item });
 			});
-		// this.foo.bar = 0; //error test
 	}
 
 	render() {

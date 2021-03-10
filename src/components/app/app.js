@@ -3,9 +3,7 @@ import { Col, Row, Container, Button } from 'reactstrap';
 import Header from '../header';
 import RandomChar from '../randomChar';
 import ErrorMessage from '../errorMessage';
-import CharacterPage from '../characterPage';
-import ItemList from '../itemList';
-import ItemDetails from '../itemDetails';
+import { CharacterPage, BooksPage, HousesPage } from '../pages';
 import gotService from '../../services/gotService';
 
 export default class App extends React.Component {
@@ -16,7 +14,7 @@ export default class App extends React.Component {
 		super();
 		this.hideRandomChar = this.hideRandomChar.bind(this);
 		this.state = {
-			hidden: false,
+			hidden: true,
 			error: false
 		};
 	}
@@ -59,28 +57,8 @@ export default class App extends React.Component {
 						</Col>
 					</Row>
 					<CharacterPage />
-					<Row>
-						<Col md='6'>
-							<ItemList 
-								onItemSelected={this.onCharSelected} 
-								getData={this.gotService.getAllBooks}
-								renderItem={ (item) => (<><span>{item.name}</span> <button>Click me</button></>)}/>
-						</Col>
-						<Col md='6'>
-							<ItemDetails itemId={this.state.selectedChar} />
-						</Col>
-					</Row>
-					<Row>
-						<Col md='6'>
-							<ItemList 
-								onItemSelected={this.onCharSelected} 
-								getData={this.gotService.getAllHouses}
-								renderItem={ (item) => item.name}/>
-						</Col>
-						<Col md='6'>
-							<ItemDetails itemId={this.state.selectedChar} />
-						</Col>
-					</Row>
+					<BooksPage/>
+					<HousesPage/>
 				</Container>
 			</>
 		);

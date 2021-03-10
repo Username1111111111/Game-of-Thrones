@@ -38,12 +38,6 @@ export default class GotService {
 		return await res.json();
 	}
 
-	// async getAllCharacters(page = 5, pageSize = 10) {
-	// 	const startId = (page - 1) * pageSize;
-	// 	const res = await this.getResource(`/characters?page=${page}&pageSize=${pageSize}`);
-	// 	return res.map( (elem, index) => this._transformCharacter(elem, startId + index));
-	// }
-
 	getAllCharacters = async (page = 5, pageSize = 10) => {
 		const res = await this.getResource(`/characters?page=${page}&pageSize=${pageSize}`);
 		return res.map( (elem) => this._transformCharacter(elem));
@@ -54,32 +48,25 @@ export default class GotService {
 		return this._transformCharacter(character, id);
 	}
 
-	getAllBooks = async () => {
-		return this.getResource('/books/');
+	getAllBooks = async (page = 1, pageSize = 10) => {
+		const res = await this.getResource(`/books?page=${page}&pageSize=${pageSize}`);
+		return res.map( (elem) => this._transformBook(elem));
 	}
 
 	getBook = async (id) => {
-		return this.getResource(`/books/${id}`);
+		const book = await this.getResource(`/books/${id}`);
+		return this._transformBook(book, id);
 	}
 
-	getAllHouses = async () => {
-		return this.getResource('/houses/');
+	getAllHouses = async (page = 1, pageSize = 10) => {
+		const res = await this.getResource(`/houses?page=${page}&pageSize=${pageSize}`);
+		return res.map( (elem) => this._transformHouse(elem));
 	}
 
 	getHouse = async (id) => {
-		return this.getResource(`/houses/${id}`);
+		const house = await this.getResource(`/houses/${id}`);
+		return this._transformHouse(house, id);
 	}
-
-	// _transformCharacter(char, id) {
-	// 	return {
-	// 		id: id,
-	// 		name: this.checkProp(char.name),
-	// 		gender: this.checkProp(char.gender),
-	// 		born: this.checkProp(char.born),
-	// 		died: this.checkProp(char.died),
-	// 		culture: this.checkProp(char.culture)
-	// 	};
-	// }
 
 	_transformCharacter(char) {
 		return {
@@ -92,23 +79,35 @@ export default class GotService {
 		};
 	}
 
-	_transformHouse(house) {
+	_transformBook(book) {
+		const rlsd = Date.parse(this.checkProp(book.released));
+		let day = new Date(rlsd).getDay() + '';
+		if (day.length == 1) {
+			day = '0' + day;
+		}
+		let month = (new Date(rlsd).getMonth() + 1) + '';
+		if (month.length == 1) {
+			month = '0' + month;
+		}
+		let year = new Date(rlsd).getFullYear();
 		return {
-			name: house.name,
-			region: house.region,
-			words: house.words,
-			titles: house.titles,
-			overlord: house.overlord,
-			ancestralWeapons: house.ancestralWeapons
+			id: this._getIdFromUrl(book.url),
+			name: this.checkProp(book.name),
+			numberOfPages: this.checkProp(book.numberOfPages),
+			publisher: this.checkProp(book.publisher),
+			released: `${day}.${month}.${year}`
 		};
 	}
 
-	_transformBook(book) {
+	_transformHouse(house) {
 		return {
-			name: book.name,
-			numberOfPages: book.numberOfPages,
-			publisher: book.publisher,
-			released: book.released
+			id: this._getIdFromUrl(house.url),
+			name: this.checkProp(house.name),
+			region: this.checkProp(house.region),
+			words: this.checkProp(house.words),
+			titles: this.checkProp(house.titles),
+			overlord: this.checkProp(house.overlord),
+			ancestralWeapons: this.checkProp(house.ancestralWeapons)
 		};
 	}
 
@@ -120,8 +119,19 @@ export default class GotService {
 	}
 
 	checkProp(propValue) {
-		if (propValue === undefined || propValue.length < 1 || propValue === null || propValue === '' || !propValue ) {
+		if (propValue === undefined || propValue.length < 1 || propValue === null || propValue === '' || !propValue) {
 			return '*No data*';
+		}
+		else if (Array.isArray(propValue)) {
+			if (propValue.length < 1 || propValue[0] == '') {
+				return '*No data*';
+			}
+			else if (propValue.length == 1) {
+				return propValue + '';
+			}
+			else if (propValue.length > 1) {
+				return propValue.toString().split(',').join(', ');
+			}
 		} else {
 			return propValue;
 		}

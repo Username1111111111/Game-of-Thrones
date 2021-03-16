@@ -38,7 +38,7 @@ export default class App extends React.Component {
 				return null;
 			}
 			else {
-				return <RandomChar />;
+				return <RandomChar interval={30000}/>;
 			}
 		};
 

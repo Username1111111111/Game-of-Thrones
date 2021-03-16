@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import './itemList.css';
 import gotService from '../../services/gotService';
 import Spinner from '../spinner';
+import PropTypes from 'prop-types';
 
 
 export default class ItemList extends Component {
@@ -59,3 +60,12 @@ export default class ItemList extends Component {
 		);
 	}
 }
+
+ItemList.defaultProps = {
+	onItemSelected: () => {}
+};
+
+ItemList.propTypes = {
+	onItemSelected: PropTypes.func,
+	// getData: PropTypes.arrayOf(PropTypes.object)
+};

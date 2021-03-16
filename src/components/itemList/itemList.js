@@ -6,25 +6,9 @@ import Spinner from '../spinner';
 import PropTypes from 'prop-types';
 
 
-export default class ItemList extends Component {
+class ItemList extends Component {
 
 	gotService = new gotService();
-
-	state = {
-		itemList: null
-	}
-
-	componentDidMount() {
-
-		const {getData} = this.props;
-
-		getData()
-			.then( (itemList) => {
-				this.setState({
-					itemList
-				}); 
-			});
-	}
 
 	renderItems(arr) {
 		
@@ -45,13 +29,9 @@ export default class ItemList extends Component {
 
 	render() {
 
-		const {itemList} = this.state;
+		const {data} = this.props;
 
-		if (!itemList) {
-			return <Spinner/>;
-		}
-
-		const items = this.renderItems(itemList);
+		const items = this.renderItems(data);
 
 		return (
 			<ul className="item-list list-group">
@@ -69,3 +49,38 @@ ItemList.propTypes = {
 	onItemSelected: PropTypes.func,
 	// getData: PropTypes.arrayOf(PropTypes.object)
 };
+
+const f = () => {
+	// eslint-disable-next-line react/display-name
+	return class extends Component {
+
+		state = {
+			data: null
+		}
+	
+		componentDidMount() {
+	
+			const {getData} = this.props;
+	
+			getData()
+				.then( (data) => {
+					this.setState({
+						data
+					}); 
+				});
+		}
+
+		render() {
+
+			const {data} = this.state;
+
+			if (!data) {
+				return <Spinner/>;
+			}
+			
+			return <ItemList {...this.props} data={data}/>;
+		}
+	};
+};
+
+export default f();

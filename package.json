@@ -2,11 +2,13 @@
   "name": "react-got",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://username1111111111.github.io/Game-of-Thrones/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",
     "@testing-library/user-event": "^12.6.0",
     "bootstrap": "^4.5.3",
+    "gh-pages": "^3.2.0",
     "node-sass": "^4.14.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
@@ -21,7 +23,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+	"deploy": "gh-pages -d build",
+    "predeploy": "npm run build"
   },
   "eslintConfig": {
     "extends": [

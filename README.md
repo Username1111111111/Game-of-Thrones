@@ -1,70 +1,76 @@
-# Getting Started with Create React App
+# Game Of Thrones <img src="https://img.shields.io/badge/Status-Complete-green" style="vertical-align: middle;">
+> 
+> <p><a href="https://username1111111111.github.io/Game-of-Thrones/">Live demo here</a></p>
+> <p>Or 👇:</p>
+<a href="https://username1111111111.github.io/Game-of-Thrones/">
+ <img src="./_resourses/got.png">
+</a>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Table of Contents
+* [General Info](#general-information)
+* [Technologies Used](#technologies-used)
+* [Features](#features)
+* [Screenshots](#screenshots)
+* [Setup](#setup)
+* [Usage](#usage)
+* [Contact](#contact)
 
-## Available Scripts
 
-In the project directory, you can run:
+## General Information
+- This was done as one of my Udemy learning projects
+- It was inteded for practice with:
+	- React 
+	- React Router
+	- PropTypes
+	- Higher order components
+	- Hooks
+	- Decentralized state storage approach (unlike "Dec-Inc-Rnd" app, where centralized)
+	- Spinner component
+	- Error handling component
+	- fetching and parsing data from API of Ice and Fire (server)
+	- handling empty fields from API 
+	- lifecycle methods
+	- unique IDs for \<li> items
+- Also for learning various patterns: 
+	- render function
+	- React.Props.Children
+	- functions data-getters from props
+	- avoiding copypaste
 
-### `npm start`
+## Technologies Used
+- React
+- Reactstrap (Bootstrap for react)
+- React Router DOM
+- PropTypes
+- node-sass
+- styled-components
+- API of Ice and Fire
+- gh-pages (to deploy at github)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Features
+- Displaying random character (and ability to toggle)
+- Navigation to characters, books, houses
+- Detailed description of choosen character, book or house
+- Fetching from API and parsing, error handling, routing
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Screenshots
+![Screenshot](./_resourses/got.gif)
 
-### `npm test`
+## Setup
+1. Clone the repo  
+2. Type in terminal `npm install` inside cloned repo
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**To build:**
+* `npm build`
 
-### `npm run build`
+## Usage
+- Type in terminal `npm start` inside cloned repo
+- Enjoy 👍
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Contact
+<p style="font-size: 16px;"><a style="text-decoration: none;"href="https://github.com/Username1111111111/Username1111111111">@Username1111111111</a><details> 
+  <summary>The Frontend developer</summary>
+  💪
+</details></p>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

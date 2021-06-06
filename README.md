@@ -1,5 +1,5 @@
 # Game Of Thrones <img src="https://img.shields.io/badge/Status-Complete-green" style="vertical-align: middle;">
-> 
+> Frontend (app) for API of Ice and Fire 
 > <p><a href="https://username1111111111.github.io/Game-of-Thrones/">Live demo here</a></p>
 > <p>Or 👇:</p>
 <a href="https://username1111111111.github.io/Game-of-Thrones/">
